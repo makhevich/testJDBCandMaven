@@ -1,14 +1,20 @@
 package jm.task.core.jdbc.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@Entity // <--- Самая важная аннотация! Без неё Hibernate не видит класс.
+
 // Аннотации @Table, @Id, @Column нужны для Hibernate,
 
-@Table // Это значит таблица
+@Table(name = "users") // Это значит таблица
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column // Это поле — колонка в таблице
@@ -20,7 +26,7 @@ public class User {
     @Column
     private Byte age;
 
-    public User() { // пустой констрктор нужен для Hibernate
+    public User() { // пустой конструктор нужен для Hibernate
     }
 
     public User(String name, String lastName, Byte age) {
@@ -61,7 +67,7 @@ public class User {
         this.age = age;
     }
 
-    // Дефолтный выводит адресс в памяти, а этот на русском будет выводить.
+    // Дефолтный выводит адрес в памяти, а этот на русском будет выводить.
     @Override
 
     // склеим строку "User{id=1, name='Ivan'...}".
